@@ -1,7 +1,14 @@
 ;; some default here
-(progn
-  (icomplete-mode 1)
-  (menu-bar-mode -1)
-  (show-paren-mode 1)
-  (global-linum-mode 1)
-  (setq-default indent-tabs-mode nil))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(icomplete-mode t)
+ '(menu-bar-mode nil)
+ '(show-paren-mode t)
+ '(global-linum-mode t)
+ '(indent-tabs-mode nil)
+ '(require-final-newline t)
+ '(show-trailing-whitespace t)
+ '(tab-width 2))
