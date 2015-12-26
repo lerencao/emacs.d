@@ -11,6 +11,7 @@
  '(indent-tabs-mode nil)
  '(require-final-newline t)
  '(show-trailing-whitespace t)
- '(tab-width 2))
+ '(tab-width 2)
+ '(make-backup-files nil))
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
