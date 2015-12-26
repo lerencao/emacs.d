@@ -6,3 +6,4 @@
 (depends-on "cask")
 (depends-on "pallet")
 (depends-on "smartparens")
+(depends-on "enh-ruby-mode")
