@@ -12,3 +12,5 @@
  '(require-final-newline t)
  '(show-trailing-whitespace t)
  '(tab-width 2))
+
+(add-hook 'before-save-hook 'whitespace-cleanup)
