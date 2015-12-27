@@ -7,3 +7,4 @@
 (depends-on "pallet")
 (depends-on "smartparens")
 (depends-on "enh-ruby-mode")
+(depends-on "markdown-mode")
