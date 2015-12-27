@@ -1,5 +1,5 @@
 ## My Own Emacs Conf
 
-After using emacs with configs copy from others for a while,
-I realized that it's time to start my own emacs configuration,
-so here we go.
+Here is customize config of emacs using [cask](http://cask.readthedocs.org).
+
+just `sh setup.sh` to install *cask* and related emacs packages, then start enjoying emacs.
