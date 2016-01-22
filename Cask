@@ -17,3 +17,5 @@
 
 (depends-on "elixir-mode")
 (depends-on "alchemist")
+
+(depends-on "dockerfile-mode")
