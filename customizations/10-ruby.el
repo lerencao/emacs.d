@@ -16,3 +16,7 @@
              (outline-minor-mode)
              (setq outline-regexp
                    " *\\(def \\|class\\|module\\|describe \\|it \\)")))
+
+;; use inf-ruby for company
+(add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+(add-hook 'enh-ruby-mode-hook 'company-mode)
