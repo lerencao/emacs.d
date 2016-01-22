@@ -6,6 +6,8 @@
 (depends-on "cask")
 (depends-on "pallet")
 (depends-on "smartparens")
+(depends-on "company-mode")
 (depends-on "enh-ruby-mode")
 (depends-on "markdown-mode")
+(depends-on "elixir-mode")
 (depends-on "alchemist")
