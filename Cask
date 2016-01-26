@@ -6,7 +6,8 @@
 (depends-on "cask")
 (depends-on "pallet")
 (depends-on "smartparens")
-(depends-on "company-mode")
+(depends-on "company")
+(depends-on "flycheck")
 
 (depends-on "enh-ruby-mode")
 (depends-on "inf-ruby")
