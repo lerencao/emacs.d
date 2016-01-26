@@ -16,6 +16,7 @@
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+(windmove-default-keybindings)
 
 ;; font config
 ;; (defun set-font (english chinese english-size chinese-size)
