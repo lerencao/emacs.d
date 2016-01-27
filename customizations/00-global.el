@@ -1,4 +1,7 @@
-;; some default here
+;;; package --- summary
+;;; Commentary:
+
+;;; Code:
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -27,3 +30,5 @@
 ;;                       (font-spec :family chinese :size chinese-size))))
 
 ;; (set-font "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 14 14)
+
+;;; 00-global.el ends here
