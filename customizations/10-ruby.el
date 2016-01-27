@@ -1,6 +1,8 @@
-;; use enh-ruby-mode here
+;;; pacakge --- summary
+;;; Commentary:
+;; ruby mode config
 
-
+;;; Code:
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
@@ -15,8 +17,12 @@
           '(lambda ()
              (outline-minor-mode)
              (setq outline-regexp
-                   " *\\(def \\|class\\|module\\|describe \\|it \\)")))
+                   " *\\(def \\|class\\|module\\|describe \\|it \\)")
+             (robe-mode)
+             (company-mode)))
 
-;; use inf-ruby for company
-(add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
-(add-hook 'enh-ruby-mode-hook 'company-mode)
+;; use robe for company
+(eval-after-load 'company '(push 'company-robe company-backends))
+
+
+;;; 10-ruby.el ends here

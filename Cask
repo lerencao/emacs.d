@@ -11,7 +11,7 @@
 
 (depends-on "enh-ruby-mode")
 (depends-on "inf-ruby")
-
+(depends-on "robe")
 
 (depends-on "markdown-mode")
 
