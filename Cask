@@ -19,4 +19,6 @@
 (depends-on "elixir-mode")
 (depends-on "alchemist")
 
+(depends-on "erlang")
+
 (depends-on "dockerfile-mode")
