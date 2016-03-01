@@ -22,3 +22,5 @@
 (depends-on "erlang")
 
 (depends-on "dockerfile-mode")
+
+(depends-on "magit")
