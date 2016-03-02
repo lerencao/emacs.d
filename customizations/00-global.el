@@ -21,6 +21,10 @@
 
 (windmove-default-keybindings)
 
+
+;; magit mode global key set
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; font config
 ;; (defun set-font (english chinese english-size chinese-size)
 ;;   (set-face-attribute 'default nil :font
