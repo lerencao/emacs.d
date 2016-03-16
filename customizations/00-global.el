@@ -17,6 +17,11 @@
  '(tab-width 2)
  '(make-backup-files nil))
 
+(global-hl-line-mode 1)
+;; customize the background color
+(set-face-background 'hl-line "white")
+(set-face-foreground 'highlight nil)
+
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
 (windmove-default-keybindings)
