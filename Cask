@@ -24,3 +24,5 @@
 (depends-on "dockerfile-mode")
 
 (depends-on "magit")
+
+(depends-on "yaml-mode")
