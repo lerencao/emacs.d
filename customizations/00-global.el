@@ -2,6 +2,15 @@
 ;;; Commentary:
 
 ;;; Code:
+
+;;; Text mode and Auto Fill mode
+;; The next two lines put Emacs into Text mode
+;; and Auto Fill mode, and are for writers who
+;; want to start writing prose rather than code.
+(setq-default major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -29,6 +38,13 @@
 
 ;; magit mode global key set
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;; By default, C-x C-b runs the list-buffers command.
+;; This command lists your buffers in another window.
+;; Since I almost always want to do something in that window,
+;; I prefer the buffer-menu command, which not only lists the buffers,
+;; but moves point into that window.
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
 
 ;; font config
 ;; (defun set-font (english chinese english-size chinese-size)

@@ -26,3 +26,9 @@
 (depends-on "magit")
 
 (depends-on "yaml-mode")
+
+(depends-on "cmake-mode")
+(depends-on "cmake-font-lock")
+
+(depends-on "rust-mode")
+(depends-on "racer")
