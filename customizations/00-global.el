@@ -35,7 +35,6 @@
 
 (windmove-default-keybindings)
 
-
 ;; magit mode global key set
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -47,13 +46,20 @@
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
 ;; font config
-;; (defun set-font (english chinese english-size chinese-size)
-;;   (set-face-attribute 'default nil :font
-;;                       (format "%s:pixelsize=%d" english english-size))
-;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;     (set-fontset-font (frame-parameter nil 'font) charset
-;;                       (font-spec :family chinese :size chinese-size))))
+;; (set-face-attribute 'default nil :height 150)
 
-;; (set-font "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 14 14)
+(defun set-font (english chinese english-size chinese-size)
+  (set-face-attribute 'default nil :font
+                      (format "%s:pixelsize=%d" english english-size))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family chinese :size chinese-size))))
+(if (display-graphic-p)
+    (set-font "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 14 14))
 
+
+(setq-default
+ whitespace-line-column 80
+ whitespace-style '(face lines-tail trailing tabs))
+(add-hook 'prog-mode-hook 'whitespace-mode)
 ;;; 00-global.el ends here
