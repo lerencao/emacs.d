@@ -57,6 +57,7 @@
 (if (display-graphic-p)
     (set-font "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 14 14))
 
+(load-theme 'solarized-light t)
 
 (setq-default
  whitespace-line-column 80

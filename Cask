@@ -32,3 +32,5 @@
 
 (depends-on "rust-mode")
 (depends-on "racer")
+
+(depends-on "solarized-theme")
