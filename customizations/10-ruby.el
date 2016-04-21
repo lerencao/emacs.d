@@ -15,6 +15,7 @@
 ;;; show-all, show-children, ... to some keys easy folding and unfolding
 (add-hook 'enh-ruby-mode-hook
           '(lambda ()
+             (setq enh-ruby-deep-indent-paren nil)
              (outline-minor-mode)
              (setq outline-regexp
                    " *\\(def \\|class\\|module\\|describe \\|it \\)")
