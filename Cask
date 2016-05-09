@@ -34,3 +34,5 @@
 (depends-on "racer")
 
 (depends-on "solarized-theme")
+
+(depends-on "fish-mode")
