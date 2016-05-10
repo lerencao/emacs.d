@@ -3,6 +3,5 @@
 
 ;;; Code:
 
-(add-hook 'emacs-lisp-mode-hook 'company-mode)
-
+(add-hook 'prog-mode-hook 'company-mode)
 ;;; 03-company-mode.el ends here

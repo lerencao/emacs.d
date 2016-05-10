@@ -36,3 +36,5 @@
 (depends-on "solarized-theme")
 
 (depends-on "fish-mode")
+
+(depends-on "company-tern")
