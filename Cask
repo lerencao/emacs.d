@@ -8,6 +8,7 @@
 (depends-on "smartparens")
 (depends-on "company")
 (depends-on "flycheck")
+(depends-on "flycheck-pos-tip")
 (depends-on "yasnippet")
 (depends-on "enh-ruby-mode")
 (depends-on "inf-ruby")
@@ -38,3 +39,5 @@
 (depends-on "fish-mode")
 
 (depends-on "company-tern")
+
+(depends-on "toml-mode")
