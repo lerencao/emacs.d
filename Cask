@@ -10,10 +10,12 @@
 (depends-on "flycheck")
 (depends-on "flycheck-pos-tip")
 (depends-on "yasnippet")
+
+
 (depends-on "enh-ruby-mode")
 (depends-on "inf-ruby")
 (depends-on "robe")
-
+(depends-on "yard-mode")
 (depends-on "markdown-mode")
 
 

@@ -18,11 +18,10 @@
              (outline-minor-mode)
              (setq outline-regexp
                    " *\\(def \\|class\\|module\\|describe \\|it \\)")
+             (yard-mode)
+             (eldoc-mode)
              (robe-mode)
-             (company-mode)))
-
-;; use robe for company
-(eval-after-load 'company '(push 'company-robe company-backends))
-
+             (company-mode)
+             (push 'company-robe company-backends)))
 
 ;;; 10-ruby.el ends here
