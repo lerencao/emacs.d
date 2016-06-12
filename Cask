@@ -43,6 +43,6 @@
 (depends-on "company-tern")
 
 (depends-on "toml-mode")
-
+(depends-on "cargo")
 
 (depends-on "go-mode")
