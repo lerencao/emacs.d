@@ -46,3 +46,6 @@
 (depends-on "cargo")
 
 (depends-on "go-mode")
+
+
+(depends-on "xkcd")
