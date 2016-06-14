@@ -55,7 +55,7 @@
     (set-fontset-font (frame-parameter nil 'font) charset
                       (font-spec :family chinese :size chinese-size))))
 (if (display-graphic-p)
-    (set-font "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 14 14))
+    (set-font "WenQuanYi Micro Hei Mono" "WenQuanYi Micro Hei Mono" 14 14))
 
 (load-theme 'solarized-light t)
 
