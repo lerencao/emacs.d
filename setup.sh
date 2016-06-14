@@ -16,3 +16,4 @@ export PATH=$HOME/.cask/bin:$PATH
 
 cd ~/.emacs.d
 cask install
+git clone https://github.com/rust-lang/rust.git customizations/rust
