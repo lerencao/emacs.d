@@ -65,9 +65,9 @@
 ;;       (add-to-list 'default-frame-alist '(font . (concat my-default-font "-" 14)))))))
 
 (defconst my/english-fonts
-  '("Monaco" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
+  '("Source Code Pro" "Monaco" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
     "Courier" "Courier New" "Liberation Mono" "Ubuntu Mono" "Droid Sans Mono Pro"
-    "Inconsolata" "Source Code Pro" "Lucida Console" "Envy Code R" "Andale Mono"
+    "Inconsolata" "Lucida Console" "Envy Code R" "Andale Mono"
     "Lucida Sans Typewriter" "monoOne" "Lucida Typewriter" "Panic Sans" "Hack"
     "Bitstream Vera Sans Mono" "HyperFont" "PT Mono" "Ti92Pluspc" "Excalibur Monospace"
     "Menlof" "Cousine" "Fira Mono" "Lekton" "M+ 1mn" "BPmono" "Free Mono"
@@ -83,7 +83,8 @@
     "华文彩云" "华文新魏" "华文细黑" "华文行楷"))
 (defun my/font-exists-p (font)
   "Check if FONT exists."
-  (member font (font-family-list)))
+  (if (null (x-list-fonts font))
+      nil t))
 (defun my/set-font (english-fonts chinese-fonts english-size chinese-size)
   (require 'cl)
   (let* ((selected-en (find-if #'my/font-exists-p english-fonts))
