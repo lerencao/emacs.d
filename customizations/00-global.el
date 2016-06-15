@@ -45,6 +45,13 @@
 ;; but moves point into that window.
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
+
+;; buffer-move key-bindings
+(global-set-key (kbd "C-c <C-up>")     'buf-move-up)
+(global-set-key (kbd "C-c <C-down>")   'buf-move-down)
+(global-set-key (kbd "C-c <C-left>")   'buf-move-left)
+(global-set-key (kbd "C-c <C-right>")  'buf-move-right)
+
 ;; font config
 ;; (set-face-attribute 'default nil :height 150)
 ;; set default font in initial window and for any new window

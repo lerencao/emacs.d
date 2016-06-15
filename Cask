@@ -49,3 +49,5 @@
 
 
 (depends-on "xkcd")
+
+(depends-on "buffer-move")
