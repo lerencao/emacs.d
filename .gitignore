@@ -4,7 +4,7 @@
 /elpa
 
 # /url/cache
-# /.emacs.desktop
+/.emacs.desktop
 # /.session
 # /custom.el
 # *.elc
@@ -36,3 +36,6 @@
 # /.smex-items
 # /image-dired/
 .cask
+/games
+/xkcd
+/eshell
