@@ -52,6 +52,12 @@
 (global-set-key (kbd "C-c <C-left>")   'buf-move-left)
 (global-set-key (kbd "C-c <C-right>")  'buf-move-right)
 
+
+
+;; exec-path-from-shell
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;; font config
 ;; (set-face-attribute 'default nil :height 150)
 ;; set default font in initial window and for any new window
