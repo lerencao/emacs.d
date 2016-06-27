@@ -85,7 +85,8 @@
  '(require-final-newline t)
  '(show-trailing-whitespace t)
  '(tab-width 2)
- '(make-backup-files nil))
+ '(make-backup-files nil)
+ '(initial-frame-alist (quote ((fullscreen . fullboth)))))
 
 (global-hl-line-mode 1)
 ;; customize the background color
