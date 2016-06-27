@@ -1,15 +1,31 @@
-if [[ ! -e ~/.cask ]]
+#!/bin/sh
+
+if [ ! -d ~/.cask ]
 then
     echo "Clone Cask Repo"
     git clone https://github.com/cask/cask.git ~/.cask
 fi
 
-if [[ $(grep ".cask/bin" ~/.zshrc) == "" ]]
+source_file=""
+case $(basename $SHELL) in
+    zsh)
+	source_file='.zshrc'
+	;;
+    bash)
+	source_file='.bashrc'
+	;;
+    *)
+	echo "unrecognized shell $shell_name" >&2
+	exit 1
+	;;
+esac
+
+if [ ! "$(grep '.cask/bin' ~/$source_file)" ]
 then
-    echo "Adding \$HOME/.cask/bin to \$PATH in ~/.zshrc"
-    echo "" >> ~/.zshrc
-    echo "# added by ~/.emacs.d/setup.sh" >> ~/.zshrc
-    echo "export PATH=\$HOME/.cask/bin:\$PATH" >> ~/.zshrc
+    echo "Adding \$HOME/.cask/bin to \$PATH in ~/$source_file"
+    echo "" >> ~/$source_file
+    echo "# added by ~/.emacs.d/setup.sh" >> ~/$source_file
+    echo "export PATH=\$HOME/.cask/bin:\$PATH" >> ~/$source_file
 fi
 
 export PATH=$HOME/.cask/bin:$PATH
