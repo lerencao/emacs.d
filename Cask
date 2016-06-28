@@ -52,5 +52,4 @@
 
 (depends-on "buffer-move")
 
-
 (depends-on "exec-path-from-shell")

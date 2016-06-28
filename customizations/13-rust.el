@@ -15,6 +15,7 @@
                         (file-name-directory load-file-name)))
 
 (add-hook 'racer-mode-hook '(lambda ()
+                              (racer-turn-on-eldoc)
                               (company-mode)
                               (local-set-key (kbd "TAB")
                                              'company-indent-or-complete-common)

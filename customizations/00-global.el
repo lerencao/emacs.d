@@ -4,6 +4,11 @@
 ;;; Code:
 
 
+
+;; exec-path-from-shell
+(exec-path-from-shell-initialize)
+
+
 ;; font config
 ;; (set-face-attribute 'default nil :height 150)
 ;; set default font in initial window and for any new window
@@ -58,7 +63,7 @@
     ))
 
 (if (display-graphic-p)
-    (my/set-font my/english-fonts my/chinese-fonts 14 16))
+    (my/set-font my/english-fonts my/chinese-fonts 15 16))
 
 (load-theme 'solarized-light t)
 
