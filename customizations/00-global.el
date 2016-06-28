@@ -130,4 +130,11 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+
+
+; ediff configuration
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-diff-options "-w")
+
 ;;; 00-global.el ends here
