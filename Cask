@@ -6,7 +6,10 @@
 (depends-on "cask")
 (depends-on "pallet")
 (depends-on "smartparens")
+
 (depends-on "company")
+(depends-on "company-quickhelp")
+
 (depends-on "flycheck")
 (depends-on "flycheck-pos-tip")
 (depends-on "yasnippet")
@@ -63,3 +66,7 @@
 (depends-on "highlight-indentation")
 
 (depends-on "ace-jump-mode")
+
+(depends-on "aggressive-indent")
+
+(depends-on "expand-region")

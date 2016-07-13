@@ -59,7 +59,8 @@
 (if (display-graphic-p)
     (my/set-font my/english-fonts my/chinese-fonts 15 16))
 
-(load-theme 'solarized-light t)
+;; (load-theme 'solarized-light t)
+(load-theme 'leuven t)
 
 
 
@@ -159,4 +160,10 @@
 
 ;; ace-jump
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
+;; expand-region config
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+
 ;;; 00-global.el ends here
