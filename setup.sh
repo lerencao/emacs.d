@@ -9,15 +9,15 @@ fi
 source_file=""
 case $(basename $SHELL) in
     zsh)
-	source_file='.zshrc'
-	;;
+        source_file='.zshrc'
+        ;;
     bash)
-	source_file='.bashrc'
-	;;
+        source_file='.bashrc'
+        ;;
     *)
-	echo "unrecognized shell $shell_name" >&2
-	exit 1
-	;;
+        echo "unrecognized shell $shell_name" >&2
+        exit 1
+        ;;
 esac
 
 if [ ! "$(grep '.cask/bin' ~/$source_file)" ]
@@ -33,3 +33,5 @@ export PATH=$HOME/.cask/bin:$PATH
 cd ~/.emacs.d
 cask install
 git clone https://github.com/rust-lang/rust.git customizations/rust
+
+curl https://raw.githubusercontent.com/ppareit/graphviz-dot-mode/master/graphviz-dot-mode.el -o customizations/23-graphviz-dot-mode.el

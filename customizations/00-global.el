@@ -3,12 +3,6 @@
 
 ;;; Code:
 
-
-
-;; exec-path-from-shell
-(exec-path-from-shell-initialize)
-
-
 ;; font config
 ;; (set-face-attribute 'default nil :height 150)
 ;; set default font in initial window and for any new window
@@ -136,10 +130,33 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 
+;; enable interactive-do
+(ido-mode t)
+(ido-everywhere t)
+(flx-ido-mode t)
+(setq ido-enable-flex-matching t)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
+(ido-ubiquitous-mode t)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-; ediff configuration
+;; ediff configuration
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-diff-options "-w")
 
+;; projectile mode config
+(projectile-global-mode)
+
+
+;; highlight indentation mode config
+(require 'highlight-indentation)
+(highlight-indentation-mode)
+(set-face-background 'highlight-indentation-face "#e3e3d3")
+(set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
+
+;; ace-jump
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 ;;; 00-global.el ends here

@@ -53,3 +53,13 @@
 (depends-on "buffer-move")
 
 (depends-on "exec-path-from-shell")
+
+(depends-on "projectile")
+
+(depends-on "flx-ido")
+(depends-on "ido-ubiquitous")
+(depends-on "smex")
+
+(depends-on "highlight-indentation")
+
+(depends-on "ace-jump-mode")

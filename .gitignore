@@ -12,7 +12,7 @@
 # .svn
 # .cvsignore
 # .*.lock
-# /tramp
+/tramp
 # /TODO
 # /anything-c-adaptive-history
 # /.org-id-locations
@@ -33,9 +33,11 @@
 # /helm-adaptive-history
 # /thumbs/
 # /emms/
-# /.smex-items
+/smex-items
 # /image-dired/
 .cask
 /games
 /xkcd
 /eshell
+/ido.last
+/projectile*
