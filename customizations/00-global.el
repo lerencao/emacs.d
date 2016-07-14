@@ -79,6 +79,8 @@
  ;; If there is more than one, they won't work right.
  '(icomplete-mode t)
  '(menu-bar-mode nil)
+ '(tool-bar-mode nil)
+ '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(global-linum-mode t)
  '(indent-tabs-mode nil)
