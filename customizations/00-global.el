@@ -86,7 +86,7 @@
  '(show-trailing-whitespace t)
  '(tab-width 2)
  '(make-backup-files nil)
- '(initial-frame-alist (quote ((fullscreen . fullboth)))))
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (global-hl-line-mode 1)
 ;; customize the background color
@@ -154,7 +154,7 @@
 
 ;; highlight indentation mode config
 (require 'highlight-indentation)
-(highlight-indentation-mode)
+(add-hook 'prog-mode-hook 'highlight-indentation-mode)
 (set-face-background 'highlight-indentation-face "#e3e3d3")
 (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
 
