@@ -69,7 +69,7 @@
 ;; and Auto Fill mode, and are for writers who
 ;; want to start writing prose rather than code.
 (setq-default major-mode 'text-mode)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
 (custom-set-variables
@@ -88,6 +88,8 @@
  '(show-trailing-whitespace t)
  '(tab-width 2)
  '(make-backup-files nil)
+ '(auto-fill-mode nil)
+ '(truncate-lines t)
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (global-hl-line-mode 1)
@@ -152,7 +154,7 @@
 
 ;; projectile mode config
 (projectile-global-mode)
-
+(setq projectile-keymap-prefix (kbd "C-c C-p"))
 
 ;; highlight indentation mode config
 (require 'highlight-indentation)
@@ -167,5 +169,17 @@
 ;; expand-region config
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-
+;; Original idea from
+;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
+(defun comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command.
+        If no region is selected and current line is not blank and we are not at the end of the line,
+        then comment current line.
+        Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
+(global-set-key "\M-;" 'comment-dwim-line)
 ;;; 00-global.el ends here

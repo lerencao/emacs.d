@@ -17,6 +17,7 @@
 (depends-on "dockerfile-mode")
 (depends-on "elixir-mode")
 (depends-on "enh-ruby-mode")
+(depends-on "epresent")
 (depends-on "erlang")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")

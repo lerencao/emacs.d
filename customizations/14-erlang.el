@@ -31,6 +31,7 @@
 
 (flycheck-define-checker erlang-otp
   "An Erlang syntax checker using the Erlang interpreter."
+  :modes erlang-mode
   :command ("erlc" "-o" temporary-directory "-Wall"
             "-I" "../include" "-I" "../../include"
             "-I" "../../../include" source)
