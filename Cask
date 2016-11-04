@@ -2,6 +2,8 @@
 (source melpa)
 (source melpa-stable)
 
+
+
 (depends-on "ace-jump-mode")
 (depends-on "aggressive-indent")
 (depends-on "alchemist")
@@ -44,3 +46,9 @@
 (depends-on "yaml-mode")
 (depends-on "yard-mode")
 (depends-on "yasnippet")
+
+(depends-on "web-mode")
+
+(depends-on "chinese-fonts-setup")
+(depends-on "groovy-mode")
+

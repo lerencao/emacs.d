@@ -3,67 +3,6 @@
 
 ;;; Code:
 
-;; font config
-;; (set-face-attribute 'default nil :height 150)
-;; set default font in initial window and for any new window
-
-;; (let* ((my-default-font "Source Code Pro"))
-;;   (cond
-;;    ((string-equal system-type "windows-nt") ; Microsoft Windows
-;;     (when (member my-default-font (font-family-list))
-;;       (add-to-list 'initial-frame-alist '(font . (concat my-default-font "-" 14)))
-;;       (add-to-list 'default-frame-alist '(font . (concat my-default-font "-" 14)))))
-;;    ((string-equal system-type "darwin") ; Mac OS X
-;;     (when (member my-default-font (font-family-list))
-;;       (add-to-list 'initial-frame-alist '(font . (concat my-default-font "-" 14)))
-;;       (add-to-list 'default-frame-alist '(font . (concat my-default-font "-" 14)))))
-;;    ((string-equal system-type "gnu/linux") ; linux
-;;     (when (member my-default-font (font-family-list))
-;;       (add-to-list 'initial-frame-alist '(font . (concat my-default-font "-" 14)))
-;;       (add-to-list 'default-frame-alist '(font . (concat my-default-font "-" 14)))))))
-
-(defconst my/english-fonts
-  '("Source Code Pro" "Monaco" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
-    "Courier" "Courier New" "Liberation Mono" "Ubuntu Mono" "Droid Sans Mono Pro"
-    "Inconsolata" "Lucida Console" "Envy Code R" "Andale Mono"
-    "Lucida Sans Typewriter" "monoOne" "Lucida Typewriter" "Panic Sans" "Hack"
-    "Bitstream Vera Sans Mono" "HyperFont" "PT Mono" "Ti92Pluspc" "Excalibur Monospace"
-    "Menlof" "Cousine" "Fira Mono" "Lekton" "M+ 1mn" "BPmono" "Free Mono"
-    "Anonymous Pro" "ProFont" "ProFontWindows" "Latin Modern Mono" "Code 2002"
-    "ProggyCleanTT" "ProggyTinyTT"))
-(defconst my/chinese-fonts
-  '("微软雅黑" "Microsoft Yahei" "Microsoft_Yahei" "文泉驿等宽微米黑" "文泉驿等宽正黑"
-    "黑体" "Hiragino Sans GB"  "文泉驿正黑" "文泉驿点阵正黑" "SimHei" "SimSun" "NSimSun"
-    "FangSong" "KaiTi" "FangSong_GB2312" "KaiTi_GB2312" "LiSu" "YouYuan"
-    "新宋体" "宋体" "楷体_GB2312" "仿宋_GB2312" "幼圆" "隶书" "STXihei" "STKaiti"
-    "STSong" "STZhongsong" "STFangsong" "FZShuTi" "FZYaoti" "STCaiyun" "STHupo" "STLiti"
-    "STXingkai" "STXinwei" "方正姚体" "方正舒体" "方正粗圆_GBK" "华文仿宋" "华文中宋"
-    "华文彩云" "华文新魏" "华文细黑" "华文行楷"))
-(defun my/font-exists-p (font)
-  "Check if FONT exists."
-  (if (null (x-list-fonts font))
-      nil t))
-(defun my/set-font (english-fonts chinese-fonts english-size chinese-size)
-  (require 'cl)
-  (let* ((selected-en (find-if #'my/font-exists-p english-fonts))
-         (en (format "%s:pixelsize=%d" selected-en english-size))
-         (selected-zh (find-if #'my/font-exists-p chinese-fonts))
-         (zh (font-spec :family selected-zh :size chinese-size)))
-    (message "Set English Font to %s" en)
-    (set-face-attribute 'default nil :font en)
-    (message "Set Chinese Font to %s" zh)
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font) charset zh))
-    ))
-
-(if (display-graphic-p)
-    (my/set-font my/english-fonts my/chinese-fonts 15 16))
-
-;; (load-theme 'solarized-light t)
-(load-theme 'leuven t)
-
-
-
 ;;; Text mode and Auto Fill mode
 ;; The next two lines put Emacs into Text mode
 ;; and Auto Fill mode, and are for writers who
@@ -182,4 +121,76 @@
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 (global-set-key "\M-;" 'comment-dwim-line)
+
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (ruby . t)))
+
+
+;; font config
+
+(defconst my/english-fonts
+  '("Source Code Pro" "Monaco" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
+    "Courier" "Courier New" "Liberation Mono" "Ubuntu Mono" "Droid Sans Mono Pro"
+    "Inconsolata" "Lucida Console" "Envy Code R" "Andale Mono"
+    "Lucida Sans Typewriter" "monoOne" "Lucida Typewriter" "Panic Sans" "Hack"
+    "Bitstream Vera Sans Mono" "HyperFont" "PT Mono" "Ti92Pluspc" "Excalibur Monospace"
+    "Menlof" "Cousine" "Fira Mono" "Lekton" "M+ 1mn" "BPmono" "Free Mono"
+    "Anonymous Pro" "ProFont" "ProFontWindows" "Latin Modern Mono" "Code 2002"
+    "ProggyCleanTT" "ProggyTinyTT"))
+(defconst my/chinese-fonts
+  '("微软雅黑" "Microsoft Yahei" "Microsoft_Yahei" "文泉驿等宽微米黑" "文泉驿等宽正黑"
+    "黑体" "Hiragino Sans GB"  "文泉驿正黑" "文泉驿点阵正黑" "SimHei" "SimSun" "NSimSun"
+    "FangSong" "KaiTi" "FangSong_GB2312" "KaiTi_GB2312" "LiSu" "YouYuan"
+    "新宋体" "宋体" "楷体_GB2312" "仿宋_GB2312" "幼圆" "隶书" "STXihei" "STKaiti"
+    "STSong" "STZhongsong" "STFangsong" "FZShuTi" "FZYaoti" "STCaiyun" "STHupo" "STLiti"
+    "STXingkai" "STXinwei" "方正姚体" "方正舒体" "方正粗圆_GBK" "华文仿宋" "华文中宋"
+    "华文彩云" "华文新魏" "华文细黑" "华文行楷"))
+
+
+(defun my/font-exists-p (font)
+  "Check if FONT exists."
+  (if (null (x-list-fonts font))
+      nil t))
+
+(defun my/set-font (english-fonts english-size chinese-fonts chinese-size)
+  (require 'cl)
+  (let* ((selected-en (find-if #'my/font-exists-p english-fonts))
+         (en (format "%s:pixelsize=%d" selected-en english-size))
+         (selected-zh (find-if #'my/font-exists-p chinese-fonts))
+         (zh (font-spec :family selected-zh :size chinese-size)))
+
+    (message "Set English Font to %s" en)
+    (set-face-attribute 'default nil :font en)
+
+    (message "Set Chinese Font to %s" zh)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        zh)))
+  )
+
+(if (display-graphic-p)
+    (let ((height (display-pixel-height))
+          (width (display-pixel-width)))
+      (cond ((and (>= width 1920) (>= height 1080))
+             (my/set-font my/english-fonts 15
+                          my/chinese-fonts 16))
+            ((and (>= width 1366) (>= height 768))
+             (my/set-font my/english-fonts 14
+                          my/chinese-fonts 14))
+            ((and (>= width 1024) (>= height 600))
+             (my/set-font my/english-fonts 13
+                          my/chinese-fonts 13))
+            (t
+             (my/set-font my/english-fonts 12
+                          my/chinese-fonts 12)))
+      )
+  )
+
+(load-theme 'leuven t)
+
+
 ;;; 00-global.el ends here
