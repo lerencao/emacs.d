@@ -457,6 +457,43 @@
     )
   )
 
+;; erlang config
+(use-package erlang
+  :ensure t
+  :init
+  (flycheck-define-checker erlang-otp
+    "An Erlang syntax checker using the Erlang interpreter."
+    :modes erlang-mode
+    :command ("erlc" "-o" temporary-directory "-Wall"
+              "-I" "../include" "-I" "../../include"
+              "-I" "../../../include" source)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ": Warning:" (message) line-end)
+     (error line-start (file-name)   ":" line ": "         (message) line-end)))
+  (add-hook 'erlang-mode-hook (lambda ()
+                                (require 'erlang-start)
+                                (flycheck-select-checker 'erlang-otp)
+                                (flycheck-mode)))
+  )
+
+;; elixir config
+(use-package elixir-mode
+  :ensure t
+  :init
+  (add-hook 'elixir-mode-hook 'company-mode)
+  :config
+  (use-package alchemist
+    :ensure t)
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair
+     "fn" "end"
+     :when '(("SPC" "RET"))
+     :actions '(insert navigate))
+    (sp-local-pair
+     "do" "end"
+     :when '(("SPC" "RET"))
+     :actions '(insert navigate)))
+  )
 
 ;; Rust Config
 (use-package rust-mode
@@ -473,8 +510,12 @@
     :ensure t
     :init
     (add-hook 'racer-mode-hook 'eldoc-mode)
-    :config (setq racer-rust-src-path
-          (expand-file-name "rust/src" user-emacs-directory)))
+    (add-hook 'racer-mode-hook 'company-mode)
+    :config
+    (setq racer-rust-src-path (expand-file-name "rust/src" user-emacs-directory))
+    (racer-turn-on-eldoc)
+    (setq company-tooltip-align-annotations t)
+    )
   ;; (add-hook 'racer-mode-hook #'company-mode)
   )
 
@@ -482,11 +523,11 @@
 (use-package scala-mode
   :interpreter ("scala" . scala-mode)
   )
+
 (use-package ensime
   :ensure t
   :pin melpa-stable
   :config
-
   )
 
 ;; Jenkinsfile use groovy
