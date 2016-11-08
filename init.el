@@ -76,23 +76,32 @@
             zh)))
   )
 
-(if (display-graphic-p)
-    (let ((height (display-pixel-height))
-      (width (display-pixel-width)))
-      (cond ((and (>= width 1920) (>= height 1080))
-         (my/set-font my/english-fonts 20
-              my/chinese-fonts 20))
-        ((and (>= width 1366) (>= height 768))
-         (my/set-font my/english-fonts 14
-              my/chinese-fonts 14))
-        ((and (>= width 1024) (>= height 600))
-         (my/set-font my/english-fonts 13
-              my/chinese-fonts 13))
-        (t
-         (my/set-font my/english-fonts 12
-              my/chinese-fonts 12)))
-      )
-  )
+(defun my/set-gui-fonts-frame-hook (frame)
+  "Set gui fonts on FRAME."
+  (with-selected-frame frame
+    (run-hooks
+     (if (display-graphic-p)
+         (let ((height (display-pixel-height))
+               (width (display-pixel-width)))
+           (cond ((and (>= width 1920) (>= height 1080))
+                  (my/set-font my/english-fonts 20
+                               my/chinese-fonts 20))
+                 ((and (>= width 1366) (>= height 768))
+                  (my/set-font my/english-fonts 14
+                               my/chinese-fonts 14))
+                 ((and (>= width 1024) (>= height 600))
+                  (my/set-font my/english-fonts 13
+                               my/chinese-fonts 13))
+                 (t
+                  (my/set-font my/english-fonts 12
+                               my/chinese-fonts 12))))))))
+
+;; set font size when emacs is inited or a frame is created.
+(add-hook 'after-make-frame-functions 'my/set-gui-fonts-frame-hook)
+(add-hook 'after-init-hook (lambda ()
+                             (when (selected-frame)
+                               (my/set-gui-fonts-frame-hook (selected-frame)))))
+
 
 
 ;; Keep emacs Custom-settings in separate file
