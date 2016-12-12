@@ -227,6 +227,7 @@
 ;; Magit mode
 (use-package magit
   :ensure t
+  :pin melpa-stable
   :bind
   (("C-x g" . magit-status))
   )
@@ -237,6 +238,7 @@
   (ido-mode 1)
   (ido-everywhere t)
   (use-package flx-ido
+    :pin melpa-stable
     :ensure t
     :config
     (flx-ido-mode 1)
@@ -246,7 +248,12 @@
   (setq ido-use-faces nil)
 
   ;; get ido-style completion for function
+  (use-package ido-completing-read+
+    :pin melpa-stable
+    :ensure t
+    )
   (use-package ido-ubiquitous
+    :pin melpa-stable
     :ensure t
     :config
     (ido-ubiquitous-mode t)
@@ -354,6 +361,7 @@
 
 (use-package company
   :ensure t
+  :pin melpa-stable
   :diminish company-mode
   :bind ("C-." . company-complete)
   :init
@@ -548,6 +556,7 @@
 ;; Dockerfile mode
 (use-package dockerfile-mode
   :ensure t
+  :pin melpa-stable
   )
 
 ;; fish shell script mode
