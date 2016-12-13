@@ -30,7 +30,7 @@
 
 (use-package solarized-theme
   :ensure t
-  :config (load-theme 'solarized-dark t)
+  :config (load-theme 'solarized-light t)
   )
 
 ;; font config
@@ -292,6 +292,12 @@
   (("C-=" . er/expand-region))
   )
 
+(use-package fic-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'fic-mode)
+  )
+
 (use-package smartparens
   :ensure t
   :diminish smartparens-mode
@@ -464,13 +470,23 @@
   (use-package yard-mode
     :ensure t)
   (yard-turn-on)
+  (use-package inf-ruby
+    :ensure t
+    )
   (use-package robe
     :ensure t
-    :disabled t)
+    :init
+    (add-hook 'ruby-mode-hook 'robe-mode)
+    )
+  (use-package ruby-tools
+    :ensure t
+    :config
+    (add-hook 'ruby-mode-hook 'ruby-tools-mode)
+    )
   (use-package company
     :ensure t
     :config
-    (push 'company-mode company-backends)
+    (push 'company-robe company-backends)
     )
   )
 
@@ -551,6 +567,12 @@
 (use-package groovy-mode
   :ensure t
   :mode (("Jenkinsfile" . groovy-mode))
+  )
+
+(use-package lua-mode
+  :ensure t
+  :mode (("\\.lua$" . lua-mode))
+  :interpreter ("lua" . lua-mode)
   )
 
 ;; Dockerfile mode
