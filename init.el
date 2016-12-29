@@ -84,8 +84,8 @@
          (let ((height (display-pixel-height))
                (width (display-pixel-width)))
            (cond ((and (>= width 1920) (>= height 1080))
-                  (my/set-font my/english-fonts 20
-                               my/chinese-fonts 20))
+                  (my/set-font my/english-fonts 16
+                               my/chinese-fonts 18))
                  ((and (>= width 1366) (>= height 768))
                   (my/set-font my/english-fonts 14
                                my/chinese-fonts 14))
@@ -153,7 +153,7 @@
 
 ;; enable whittespace mode in all prog modes
 
-(use-package whitespace-mode
+(use-package whitespace
   :diminish whitespace-mode
   :config
   (setq-default whitespace-line-column 80
@@ -214,12 +214,10 @@
 
 (use-package projectile
   :ensure t
-  :demand
   :diminish projectile-mode
   :config
   (projectile-mode t)
   (setq projectile-use-git-grep t)
-  (setq projectile-keymap-prefix (kbd "C-c C-p"))
   :bind (("s-f" . projectile-find-file)
      ("s-F" . projectile-grep))
   )
@@ -423,6 +421,9 @@
   :bind
   (("M-;" . comment-dwim-line))
   )
+;; (use-package comment-dwim-2
+;;   :ensure t
+;;   :bind ("M-;" . comment-dwim-2))
 
 ;; markdown mode
 (use-package markdown-mode
@@ -431,6 +432,8 @@
      ("\\.md$" . markdown-mode))
   )
 
+;; C mode
+;; TODO
 
 ;; Ruby Mode
 (use-package ruby-mode
@@ -600,6 +603,23 @@
 ;; just for fun
 (use-package xkcd
   :ensure t)
+
+
+;; See http://emacs-fu.blogspot.nl/2013/03/editing-with-root-privileges-once-more.html
+(defun find-file-as-root ()
+  "Like `ido-find-file, but automatically edit the file with
+root-privileges (using tramp/sudo), if the file is not writable by
+user."
+  (interactive)
+  (let ((file (ido-read-file-name "Edit as root: ")))
+    (unless (file-writable-p file)
+      (setq file (concat "/sudo:root@localhost:" file)))
+    (find-file file)))
+
+(bind-key "C-x F" 'find-file-as-root)
+
+
+
 
 ;; Quotes
 ;; https://github.com/mwfogleman/config/blob/master/home/.emacs.d/michael.org
