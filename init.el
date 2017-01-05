@@ -604,6 +604,9 @@
 (use-package xkcd
   :ensure t)
 
+(use-package graphviz-dot-mode
+  :ensure t
+  )
 
 ;; See http://emacs-fu.blogspot.nl/2013/03/editing-with-root-privileges-once-more.html
 (defun find-file-as-root ()
