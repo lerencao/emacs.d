@@ -621,8 +621,12 @@ user."
 
 (bind-key "C-x F" 'find-file-as-root)
 
-
-
+(defun find-init-file ()
+  "Edit init file in another window."
+  (interactive)
+  (let ((init-file (expand-file-name "init.el" user-emacs-directory)))
+    (find-file init-file)))
+(bind-key "C-c I" 'find-init-file)
 
 ;; Quotes
 ;; https://github.com/mwfogleman/config/blob/master/home/.emacs.d/michael.org
