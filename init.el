@@ -531,6 +531,22 @@
      :actions '(insert navigate)))
   )
 
+
+;; golang config
+(use-package go-mode
+  :ensure t
+  :pin melpa-stable
+  :init
+  (use-package go-eldoc
+    :ensure t
+    :pin melpa
+    :config
+    (add-hook 'go-mode-hook 'go-eldoc-setup)
+    (add-hook 'go-mode-hook 'gofmt-before-save)
+    )
+  )
+
+
 ;; Rust Config
 (use-package rust-mode
   :ensure t
