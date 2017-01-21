@@ -434,6 +434,9 @@
 
 ;; C mode
 ;; TODO
+(use-package cmake-mode
+  :ensure t
+  )
 
 ;; Ruby Mode
 (use-package ruby-mode
@@ -624,6 +627,17 @@
   :ensure t
   )
 
+(use-package web-mode
+  :ensure t
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.[agj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.erb\\'" . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode)
+         ("\\.html?\\'" . web-mode))
+  )
 ;; See http://emacs-fu.blogspot.nl/2013/03/editing-with-root-privileges-once-more.html
 (defun find-file-as-root ()
   "Like `ido-find-file, but automatically edit the file with
