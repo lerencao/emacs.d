@@ -555,9 +555,6 @@
   :ensure t
   :mode (("\\.rs$" . rust-mode))
   :init
-  (add-hook 'rust-mode-hook 'cargo-minor-mode)
-  (add-hook 'rust-mode-hook 'racer-mode)
-  :config
   (use-package cargo
     :ensure t
     )
@@ -567,10 +564,11 @@
     (add-hook 'racer-mode-hook 'eldoc-mode)
     (add-hook 'racer-mode-hook 'company-mode)
     :config
-    (setq racer-rust-src-path (expand-file-name "rust/src" user-emacs-directory))
     (racer-turn-on-eldoc)
     (setq company-tooltip-align-annotations t)
     )
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  (add-hook 'rust-mode-hook 'racer-mode)
   ;; (add-hook 'racer-mode-hook #'company-mode)
   )
 
