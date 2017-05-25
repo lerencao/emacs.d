@@ -659,5 +659,12 @@ user."
 ;; Quotes
 ;; https://github.com/mwfogleman/config/blob/master/home/.emacs.d/michael.org
 
+
+;; csv mode to view and edit csv file
+(use-package csv-mode
+  :ensure t
+  :mode (("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+  )
+
 (provide 'init)
 ;;; init.el ends here
