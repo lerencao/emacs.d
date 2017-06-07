@@ -117,6 +117,9 @@
 (global-linum-mode)
 (global-hl-line-mode t)
 
+;; display line column along with line number in mini-menu
+(column-number-mode t)
+
 ;; do not auto line break
 (turn-off-auto-fill)
 ;; truncate lines
@@ -499,7 +502,7 @@
 ;; erlang config
 (use-package erlang
   :ensure t
-  :init
+  :config
   (flycheck-define-checker erlang-otp
     "An Erlang syntax checker using the Erlang interpreter."
     :modes erlang-mode
