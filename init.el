@@ -105,8 +105,10 @@
 
 
 ;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; (load custom-file)
+(setq-default scroll-preserve-screen-position 1)
+(setq-default vc-follow-symlinks nil)
 
 
 (if (display-graphic-p)

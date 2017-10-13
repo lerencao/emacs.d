@@ -6,7 +6,7 @@
 # /url/cache
 /.emacs.desktop
 # /.session
-# /custom.el
+/custom.el
 # *.elc
 # CVS
 # .svn
