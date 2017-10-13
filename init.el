@@ -668,5 +668,11 @@ user."
   :mode (("\\.[Cc][Ss][Vv]\\'" . csv-mode))
   )
 
+;; protobuf mode
+(use-package protobuf-mode
+  :pin melpa
+  :ensure t
+  :mode (("\\.proto$" . protobuf-mode)))
+
 (provide 'init)
 ;;; init.el ends here
