@@ -9,8 +9,8 @@
 ;; You may delete these explanatory comments.
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
@@ -23,15 +23,21 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 ;; maximize frame window
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
-(use-package solarized-theme
-  :ensure t
-  :config (load-theme 'solarized-light t)
-  )
+;; (use-package solarized-theme
+;;   :ensure t
+;;   :config (load-theme 'solarized-light t)
+;;   )
 
 ;; font config
 
@@ -83,10 +89,7 @@
      (if (display-graphic-p)
          (let ((height (display-pixel-height))
                (width (display-pixel-width)))
-           (cond ((and (>= width 1920) (>= height 1080))
-                  (my/set-font my/english-fonts 16
-                               my/chinese-fonts 18))
-                 ((and (>= width 1366) (>= height 768))
+           (cond ((and (>= width 1366) (>= height 768))
                   (my/set-font my/english-fonts 14
                                my/chinese-fonts 14))
                  ((and (>= width 1024) (>= height 600))
@@ -168,6 +171,12 @@
   (add-hook 'prog-mode-hook 'whitespace-mode)
   )
 
+(use-package js
+  :config
+  (add-hook 'js-mode-hook (lambda ()
+                            (setq-local js-indent-level 2)))
+  )
+
 
 ;; move between different windows
 (use-package windmove
@@ -239,7 +248,7 @@
 
 
 (use-package ido
-  :config
+  :init
   (ido-mode 1)
   (ido-everywhere t)
   (use-package flx-ido
@@ -256,12 +265,6 @@
   (use-package ido-completing-read+
     :pin melpa-stable
     :ensure t
-    )
-  (use-package ido-ubiquitous
-    :pin melpa-stable
-    :ensure t
-    :config
-    (ido-ubiquitous-mode t)
     )
   )
 
@@ -357,14 +360,14 @@
                ("<s-left>" . sp-forward-barf-sexp)))
   ;; (sp-with-modes '(markdown-mode gfm-mode)
   ;;   (sp-local-pair "*" "*"))
-  (sp-with-modes '(org-mode)
-    (sp-local-pair "=" "=")
-    (sp-local-pair "*" "*")
-    (sp-local-pair "/" "/")
-    (sp-local-pair "_" "_")
-    (sp-local-pair "+" "+")
-    (sp-local-pair "<" ">")
-    (sp-local-pair "[" "]"))
+  ;; (sp-with-modes '(org-mode)
+  ;;   (sp-local-pair "=" "=")
+  ;;   (sp-local-pair "*" "*")
+  ;;   (sp-local-pair "/" "/")
+  ;;   (sp-local-pair "_" "_")
+  ;;   (sp-local-pair "+" "+")
+  ;;   (sp-local-pair "<" ">")
+  ;;   (sp-local-pair "[" "]"))
   (use-package rainbow-delimiters
     :ensure t
     :init
@@ -506,7 +509,7 @@
 ;; erlang config
 (use-package erlang
   :ensure t
-  :config
+  :init
   (flycheck-define-checker erlang-otp
     "An Erlang syntax checker using the Erlang interpreter."
     :modes erlang-mode
@@ -625,10 +628,6 @@
 (use-package xkcd
   :ensure t)
 
-(use-package graphviz-dot-mode
-  :ensure t
-  )
-
 (use-package web-mode
   :ensure t
   :mode (("\\.phtml\\'" . web-mode)
@@ -672,9 +671,40 @@ user."
 
 ;; protobuf mode
 (use-package protobuf-mode
-  :pin melpa
   :ensure t
-  :mode (("\\.proto$" . protobuf-mode)))
+  :pin melpa
+  :mode (("\\.proto$" . protobuf-mode) ("\\.proto3$" . protobuf-mode)))
+
+(use-package ox-ioslide
+  :ensure t
+  :init
+  (use-package makey
+    :ensure t
+    )
+  :config
+  (require 'ox-ioslide-helper)
+  )
+
+(use-package ponylang-mode
+  :ensure t
+  :init
+  (use-package flycheck-pony
+    :ensure t
+    :config
+    (setq create-lockfiles nil))
+  (use-package pony-snippets :ensure t)
+  :config
+  (progn
+    (add-hook
+     'ponylang-mode-hook
+     (lambda ()
+       (set-variable 'indent-tabs-mode nil)
+       (set-variable 'tab-width 2)))))
+
+(use-package graphviz-dot-mode
+  :ensure t
+  :pin melpa
+  )
 
 (provide 'init)
 ;;; init.el ends here
