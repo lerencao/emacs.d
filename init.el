@@ -523,6 +523,9 @@
                                 (require 'erlang-start)
                                 (flycheck-select-checker 'erlang-otp)
                                 (flycheck-mode)))
+  (add-hook 'erlang-mode-hook (lambda ()
+                                (define-key
+                                  erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back)))
   )
 
 ;; elixir config
@@ -532,7 +535,11 @@
   (add-hook 'elixir-mode-hook 'company-mode)
   :config
   (use-package alchemist
-    :ensure t)
+    :ensure t
+    :config
+    (setq alchemist-goto-elixir-source-dir (expand-file-name "sources/elixir" user-emacs-directory))
+    (setq alchemist-goto-erlang-source-dir (expand-file-name "sources/erlang-otp" user-emacs-directory))
+    )
   (sp-with-modes '(elixir-mode)
     (sp-local-pair
      "fn" "end"
