@@ -131,9 +131,10 @@
 (column-number-mode t)
 
 ;; do not auto line break
-(turn-off-auto-fill)
+;; (turn-off-auto-fill)
+(turn-on-auto-fill)
 ;; truncate lines
-(setq-default truncate-lines t)
+(setq-default truncate-lines nil)
 
 ;; don't make backup files
 (setq-default make-backup-files nil)
@@ -529,6 +530,9 @@
   (add-hook 'erlang-mode-hook (lambda ()
                                 (define-key
                                   erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back)))
+  (add-hook 'erlang-mode-hook (lambda ()
+                                (setq indent-tabs-mode nil)
+                                (setq c-basic-offset 4)))
   )
 
 ;; elixir config
@@ -536,6 +540,13 @@
   :ensure t
   :init
   (add-hook 'elixir-mode-hook 'company-mode)
+  (add-hook 'elixir-mode-hook (lambda ()
+                                (if (projectile-project-p)
+                                    (setq elixir-format-arguments
+                                          (list "--dot-formatter"
+                                                (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
+                                  (setq elixir-format-arguments nil))
+                                (add-hook 'before-save-hook 'elixir-format nil t)))
   :config
   (use-package alchemist
     :ensure t
