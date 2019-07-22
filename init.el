@@ -7,6 +7,9 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+;; TODO:
+;; treemacs
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -383,18 +386,20 @@
   :pin melpa-stable
   :diminish company-mode
   :bind ("C-." . company-complete)
-  :init
-  (global-company-mode 1)
+  :hook (prog-mode . company-mode)
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous)
+              ("C-d" . company-show-doc-buffer)
+              ("<tab>" . company-complete)
+              ("M-h" . company-quickhelp-manual-begin))
   :config
-  (use-package company-quickhelp
-    :ensure t)
-  (add-hook 'company-mode 'company-quickhelp-mode)
-  (bind-keys :map company-active-map
-             ("C-n" . company-select-next)
-             ("C-p" . company-select-previous)
-             ("C-d" . company-show-doc-buffer)
-             ("<tab>" . company-complete)
-             ("M-h" . company-quickhelp-manual-begin)))
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1))
+(use-package company-quickhelp
+  :requires company
+  :hook (company-mode . company-quickhelp-mode)
+  :ensure t)
 
 (use-package flycheck
   :ensure t
@@ -403,14 +408,45 @@
   (global-flycheck-mode)
   (setq flycheck-indication-mode 'right-fringe)
   (setq flycheck-check-syntax-automatically '(save new-line mode-enabled))
-  :config
-  (use-package flycheck-pos-tip
-    :init
-    (flycheck-pos-tip-mode)
-    :ensure t
-    )
+  )
+(use-package flycheck-pos-tip
+  :requires flycheck
+  :init
+  (flycheck-pos-tip-mode)
+  :ensure t
   )
 
+
+(use-package lsp-mode
+  :ensure t
+  )
+(use-package lsp-ui
+  :ensure t
+  :requires lsp-mode flycheck
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-use-childframe t
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-include-signature t
+        lsp-ui-sideline-enable nil
+        lsp-ui-flycheck-enable t
+        lsp-ui-flycheck-list-position 'right
+        lsp-ui-flycheck-live-reporting t
+        lsp-ui-peek-enable t
+        lsp-ui-peek-list-width 60
+        lsp-ui-peek-peek-height 25)
+  )
+(use-package company-lsp
+  :requires company
+  :ensure t
+  :config
+  (push 'company-lsp company-backends)
+  ;; Disable client-side cache because the LSP server does a better job.
+  (setq company-transformers nil
+        company-lsp-async t
+        company-lsp-cache-candidates nil)
+  )
 (use-package yasnippet
   :ensure t
   :diminish yas-minor-mode
@@ -586,20 +622,13 @@
 (use-package rust-mode
   :ensure t
   :mode (("\\.rs$" . rust-mode))
-  :init
+  :config
   (setq rust-format-on-save t))
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :init
-;;   (add-hook 'prog-mode-hook 'lsp-mode)
-;;   :config
-;;   (use-package lsp-flycheck
-;;     :ensure f ; comes with lsp-mode
-;;     :after flycheck
-;;     ))
-;; (use-package lsp-rust
-;;   :ensure t
-;;   :after lsp-mode)
+(use-package cargo
+  :ensure t
+  :requires rust-mode
+  :hook (rust-mode . cargo-minor-mode))
+
 
 ;; Scala Config
 (use-package scala-mode
