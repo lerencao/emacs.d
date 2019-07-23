@@ -27,6 +27,7 @@
   :config
   (setq auto-package-update-delete-old-versions t)
   (setq auto-package-update-hide-results t)
+  (setq auto-package-update-interval 30)
   (auto-package-update-maybe))
 
 (use-package diminish
@@ -170,7 +171,7 @@
 (use-package whitespace
   :diminish whitespace-mode
   :config
-  (setq-default whitespace-line-column 80
+  (setq-default whitespace-line-column 120
                 whitespace-style '(face lines-tail trailing tabs))
   (add-hook 'prog-mode-hook 'whitespace-mode)
   )
