@@ -41,10 +41,10 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
-;; (use-package solarized-theme
-;;   :ensure t
-;;   :config (load-theme 'solarized-light t)
-;;   )
+(use-package solarized-theme
+  :ensure t
+  :config (load-theme 'solarized-dark t) (setq x-underline-at-descent-line t)
+  )
 
 ;; font config
 
@@ -175,7 +175,7 @@
   :diminish whitespace-mode
   :config
   (setq-default whitespace-line-column 120
-                whitespace-style '(face lines-tail trailing tabs))
+                whitespace-style '(face lines-tail trailing space-after-tab))
   (add-hook 'prog-mode-hook 'whitespace-mode)
   )
 
