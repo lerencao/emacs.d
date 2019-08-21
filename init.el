@@ -757,5 +757,24 @@ user."
   :pin melpa
   )
 
+(use-package solidity-mode
+  :ensure t
+  :pin melpa
+  :config
+  (require 'solidity-flycheck)
+  (require 'company-solidity)
+  )
+(use-package company-solidity
+  :ensure t
+  :requires (company solidity-mode)
+  )
+(use-package solidity-flycheck
+  :ensure t
+  :requires (flycheck solidity-mode)
+  :init
+  (setq solidity-flycheck-solc-checker-active t)
+  )
+
 (provide 'init)
 ;;; init.el ends here
+
