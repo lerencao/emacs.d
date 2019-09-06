@@ -385,20 +385,27 @@
   :ensure t
   :pin melpa-stable
   :diminish company-mode
-  :bind ("C-." . company-complete)
-  :hook (prog-mode . company-mode)
+  :hook (after-init . global-company-mode)
+
   :bind (:map company-active-map
               ("C-n" . company-select-next)
               ("C-p" . company-select-previous)
               ("C-d" . company-show-doc-buffer)
               ("<tab>" . company-complete)
-              ("M-h" . company-quickhelp-manual-begin))
-  :config
-  (setq company-tooltip-align-annotations t)
-  (setq company-minimum-prefix-length 1))
+              :map company-search-map
+              ("C-p" . company-select-previous)
+              ("C-n" . company-select-next))
+  :custom
+  (company-idle-delay 0)
+  (company-echo-delay 0)
+  (company-tooltip-align-annotations t)
+  (company-minimum-prefix-length 1))
 (use-package company-quickhelp
   :requires company
   :hook (company-mode . company-quickhelp-mode)
+  :bind (:map company-active-map
+              ("C-c h" . company-quickhelp-manual-begin))
+  :custom (company-quickhelp-delay 0.8)
   :ensure t)
 
 (use-package flycheck
@@ -496,6 +503,7 @@
 ;; Ruby Mode
 (use-package ruby-mode
   :ensure t
+  :requires (company)
   :mode (("\\.rb$" . ruby-mode)
          ("[vV]agrantfile$" . ruby-mode)
          ("[gG]emfile$" . ruby-mode)
@@ -544,11 +552,7 @@
     :config
     (add-hook 'ruby-mode-hook 'ruby-tools-mode)
     )
-  (use-package company
-    :ensure t
-    :config
-    (push 'company-robe company-backends)
-    )
+  (push 'company-robe company-backends)
   )
 
 ;; erlang config
