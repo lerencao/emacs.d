@@ -24,6 +24,8 @@
 
 (eval-when-compile
   (require 'use-package))
+(setq use-package-compute-statistics t)
+
 (require 'bind-key)
 (use-package auto-package-update
   :ensure t
@@ -180,10 +182,9 @@
   )
 
 (use-package js
-  :config
-  (add-hook 'js-mode-hook (lambda ()
-                            (setq-local js-indent-level 2)))
-  )
+  :mode "\\.json$"
+  :custom
+  (js-indent-level 2))
 
 
 ;; move between different windows
@@ -227,6 +228,7 @@
   :ensure t
   :if (memq window-system '(mac ns x))
   :config (exec-path-from-shell-initialize)
+  :demand
   )
 
 
@@ -259,20 +261,23 @@
   :init
   (ido-mode 1)
   (ido-everywhere t)
+
+  :custom
+  ;; disable ido faces to see flx highlights
+  (ido-enable-flex-matching t)
+  (ido-use-faces nil)
+
+  :config
+  ;; get ido-style completion for function
+  (use-package ido-completing-read+
+    :pin melpa-stable
+    :ensure t
+    )
   (use-package flx-ido
     :pin melpa-stable
     :ensure t
     :config
     (flx-ido-mode 1)
-    )
-  ;; disable ido faces to see flx highlights
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil)
-
-  ;; get ido-style completion for function
-  (use-package ido-completing-read+
-    :pin melpa-stable
-    :ensure t
     )
   )
 
@@ -558,6 +563,8 @@
 ;; erlang config
 (use-package erlang
   :ensure t
+  :requires (flycheck)
+  :mode ("\\.erl$")
   :init
   (flycheck-define-checker erlang-otp
     "An Erlang syntax checker using the Erlang interpreter."
@@ -568,30 +575,38 @@
     :error-patterns
     ((warning line-start (file-name) ":" line ": Warning:" (message) line-end)
      (error line-start (file-name)   ":" line ": "         (message) line-end)))
+  :bind (:map erlang-mode-map
+              ("M-," . alchemist-goto-jump-back))
+  :config
   (add-hook 'erlang-mode-hook (lambda ()
                                 (require 'erlang-start)
                                 (flycheck-select-checker 'erlang-otp)
                                 (flycheck-mode)))
   (add-hook 'erlang-mode-hook (lambda ()
-                                (define-key
-                                  erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back)))
-  (add-hook 'erlang-mode-hook (lambda ()
-                                (setq indent-tabs-mode nil)
-                                (setq c-basic-offset 4)))
+                                (setq-local indent-tabs-mode nil)
+                                (setq-local c-basic-offset 4)))
   )
 
 ;; elixir config
 (use-package elixir-mode
   :ensure t
+  :requires company
+
+  ;; TODO: this is flawed, check it later
   :init
-  (add-hook 'elixir-mode-hook 'company-mode)
-  (add-hook 'elixir-mode-hook (lambda ()
-                                (if (projectile-project-p)
-                                    (setq elixir-format-arguments
-                                          (list "--dot-formatter"
-                                                (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
-                                  (setq elixir-format-arguments nil))
-                                (add-hook 'before-save-hook 'elixir-format nil t)))
+  (defun set-elixir-format-arguments ()
+    (let ((formatter-exs-dir (locate-dominating-file buffer-file-name ".formatter.exs")))
+      (when formatter-exs-dir
+        (setq-local elixir-format-arguments
+                    (list "--dot-formatter" (concat formatter-exs-dir ".formatter.exs"))))
+      ))
+  (defun elixir-format-before-save ()
+    (add-hook 'before-save-hook 'elixir-format)
+    (add-hook 'elixir-format-hook 'set-elixir-format-arguments))
+
+  :hook ((elixir-mode . company-mode)
+         (elixir-mode . elixir-format-before-save))
+
   :config
   (use-package alchemist
     :ensure t
@@ -615,10 +630,13 @@
 (use-package go-mode
   :ensure t
   :pin melpa-stable
-  :init
+  :commands go-mode
+  :mode "\\.go$"
+  :config
   (use-package go-eldoc
     :ensure t
     :pin melpa
+    :commands go-eldoc-setup
     :config
     (add-hook 'go-mode-hook 'go-eldoc-setup)
     (add-hook 'go-mode-hook 'gofmt-before-save)
@@ -647,7 +665,8 @@
 (use-package ensime
   :ensure t
   :pin melpa-stable
-  :config
+  :requires (scala-mode)
+  :hook (scala-mode . ensime-mode)
   )
 
 ;; Jenkinsfile use groovy
@@ -666,6 +685,7 @@
 (use-package dockerfile-mode
   :ensure t
   :pin melpa-stable
+  :mode (("Dockerfile\\(?:\\..*\\)?\\'" . dockerfile-mode))
   )
 
 ;; fish shell script mode
@@ -686,7 +706,10 @@
 
 ;; just for fun
 (use-package xkcd
-  :ensure t)
+  :ensure t
+  :commands (xkcd)
+  :defer
+  )
 
 (use-package web-mode
   :ensure t
@@ -735,12 +758,14 @@ user."
   :pin melpa
   :mode (("\\.proto$" . protobuf-mode) ("\\.proto3$" . protobuf-mode)))
 
+(use-package makey
+  :ensure t
+  )
+
 (use-package ox-ioslide
   :ensure t
-  :init
-  (use-package makey
-    :ensure t
-    )
+  :requires makey
+  :commands (org-ioslide-export-as-html org-ioslide-export-to-html)
   :config
   (require 'ox-ioslide-helper)
   )
@@ -764,26 +789,26 @@ user."
 (use-package graphviz-dot-mode
   :ensure t
   :pin melpa
+  :mode ("\\.dot$")
   )
 
 (use-package solidity-mode
   :ensure t
   :pin melpa
+  :mode "\\.sol$"
   :config
-  (require 'solidity-flycheck)
-  (require 'company-solidity)
-  )
-(use-package company-solidity
-  :ensure t
-  :requires (company solidity-mode)
-  )
-(use-package solidity-flycheck
-  :ensure t
-  :requires (flycheck solidity-mode)
-  :init
-  (setq solidity-flycheck-solc-checker-active t)
-  )
+  (use-package company-solidity
+    :ensure t
+    :requires (company solidity-mode)
+    :commands (company-solidity)
+    )
+  (use-package solidity-flycheck
+    :ensure t
+    :requires (flycheck solidity-mode)
+    :custom
+    (solidity-flycheck-solc-checker-active t)
+    )
+  (push 'company-solidity company-backends))
 
 (provide 'init)
 ;;; init.el ends here
-
