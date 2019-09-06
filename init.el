@@ -419,7 +419,8 @@
 
 (use-package lsp-mode
   :ensure t
-  )
+  :commands lsp
+ )
 (use-package lsp-ui
   :ensure t
   :requires lsp-mode flycheck
@@ -622,6 +623,7 @@
 (use-package rust-mode
   :ensure t
   :mode (("\\.rs$" . rust-mode))
+  :hook (rust-mode . lsp)
   :config
   (setq rust-format-on-save t))
 (use-package cargo
