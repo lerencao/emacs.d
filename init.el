@@ -651,12 +651,13 @@
   :ensure t
   :mode (("\\.rs$" . rust-mode))
   :hook (rust-mode . lsp)
+  :custom
+  (rust-format-on-save t)
   :config
-  (setq rust-format-on-save t))
-(use-package cargo
-  :ensure t
-  :requires rust-mode
-  :hook (rust-mode . cargo-minor-mode))
+  (use-package cargo
+    :ensure t
+    :hook (rust-mode . cargo-minor-mode))
+  )
 
 
 ;; Scala Config
