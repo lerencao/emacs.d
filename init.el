@@ -415,17 +415,18 @@
 
 (use-package flycheck
   :ensure t
-  :diminish flycheck-mode
-  :init
-  (global-flycheck-mode)
-  (setq flycheck-indication-mode 'right-fringe)
-  (setq flycheck-check-syntax-automatically '(save new-line mode-enabled))
-  )
-(use-package flycheck-pos-tip
-  :requires flycheck
-  :init
-  (flycheck-pos-tip-mode)
-  :ensure t
+  :hook
+  (after-init . global-flycheck-mode)
+  (flycheck-mode . flycheck-pos-tip-mode)
+  :custom
+  (flycheck-indication-mode 'right-fringe)
+  (flycheck-check-syntax-automatically '(save new-line mode-enabled))
+  :config
+  (use-package flycheck-pos-tip
+    :ensure t
+    :hook
+    (flycheck-mode . flycheck-pos-tip-mode)
+    )
   )
 
 
@@ -465,9 +466,10 @@
   )
 (use-package yasnippet
   :ensure t
-  :diminish yas-minor-mode
-  :init
-  (yas-global-mode 1)
+  :hook
+  (prog-mode . yas-minor-mode)
+  :config
+  (yas-reload-all)
   )
 
 ;; comment-line do what i mean
