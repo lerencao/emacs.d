@@ -701,6 +701,7 @@
 
 ;; toml
 (use-package toml-mode
+  :mode ("\\.toml$" . toml-mode)
   :ensure t)
 
 (use-package autorevert
@@ -774,19 +775,18 @@ user."
 
 (use-package ponylang-mode
   :ensure t
-  :init
-  (use-package flycheck-pony
-    :ensure t
-    :config
-    (setq create-lockfiles nil))
-  (use-package pony-snippets :ensure t)
+  :mode ("\\.pony$")
+  :hook
+  (ponylang-mode . (lambda ()
+                     (setq-local indent-tabs-mode nil)
+                     (setq-local tab-width 2)))
   :config
-  (progn
-    (add-hook
-     'ponylang-mode-hook
-     (lambda ()
-       (set-variable 'indent-tabs-mode nil)
-       (set-variable 'tab-width 2)))))
+  (use-package flycheck-pony
+    :ensure t)
+  (use-package pony-snippets
+    :requires (yasnippt)
+    :ensure t)
+  )
 
 (use-package graphviz-dot-mode
   :ensure t
