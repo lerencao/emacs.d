@@ -251,7 +251,7 @@
 ;; Magit mode
 (use-package magit
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :bind
   (("C-x g" . magit-status))
   )
