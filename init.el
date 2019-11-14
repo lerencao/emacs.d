@@ -99,14 +99,14 @@
          (let ((height (display-pixel-height))
                (width (display-pixel-width)))
            (cond ((and (>= width 1366) (>= height 768))
-                  (my/set-font my/english-fonts 14
-                               my/chinese-fonts 14))
-                 ((and (>= width 1024) (>= height 600))
-                  (my/set-font my/english-fonts 13
-                               my/chinese-fonts 13))
-                 (t
                   (my/set-font my/english-fonts 12
-                               my/chinese-fonts 12))))))))
+                               my/chinese-fonts 12))
+                 ;; ((and (>= width 1024) (>= height 600))
+                 ;;  (my/set-font my/english-fonts 13
+                 ;;               my/chinese-fonts 13))
+                 (t
+                  (my/set-font my/english-fonts 11
+                               my/chinese-fonts 11))))))))
 
 ;; set font size when emacs is inited or a frame is created.
 (add-hook 'after-make-frame-functions 'my/set-gui-fonts-frame-hook)
@@ -182,7 +182,7 @@
   )
 
 (use-package js
-  :mode "\\.json$"
+  :mode (("\\.json$" . js-mode))
   :custom
   (js-indent-level 2))
 
@@ -403,6 +403,7 @@
   :custom
   (company-idle-delay 0)
   (company-echo-delay 0)
+  (company-show-numbers t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1))
 (use-package company-quickhelp
