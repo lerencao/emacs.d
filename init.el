@@ -433,10 +433,11 @@
 
 (use-package lsp-mode
   :ensure t
-  :commands lsp
+  :commands (lsp lsp-deferred)
   :config
   (setq lsp-auto-guess-root t
-        lsp-prefer-flymake nil)
+        lsp-prefer-flymake nil
+        lsp-file-watch-threshold 5000)
  )
 (use-package lsp-ui
   :ensure t
@@ -651,7 +652,7 @@
 (use-package rust-mode
   :ensure t
   :mode (("\\.rs$" . rust-mode))
-  :hook (rust-mode . lsp)
+  :hook (rust-mode . lsp-deferred)
   :custom
   (rust-format-on-save t)
   :config
