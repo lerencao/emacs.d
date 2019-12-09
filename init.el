@@ -815,5 +815,17 @@ user."
     )
   (push 'company-solidity company-backends))
 
+(use-package neotree
+  :ensure t
+  :pin melpa
+  :bind
+  ([f1] . neotree-toggle)
+  :custom
+  (neo-theme (if (display-graphic-p) 'icons 'arrow))
+  )
+
+(use-package all-the-icons
+  :ensure t)
+
 (provide 'init)
 ;;; init.el ends here
