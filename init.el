@@ -45,13 +45,48 @@
 
 (use-package solarized-theme
   :ensure t
-  :config (load-theme 'solarized-dark t) (setq x-underline-at-descent-line t)
+  :config
+(solarized-create-theme-file-with-palette 'light 'solarized-jellybeans-light
+  '("#202020" "#ffffff"
+    "#ffb964" "#8fbfdc" "#a04040" "#b05080" "#805090" "#fad08a" "#99ad6a" "#8fbfdc"))
+(solarized-create-theme-file-with-palette 'light 'solarized-mesa-light
+  '("#000000" "#faf5ee"
+    "#3388dd" "#ac3d1a" "#dd2222" "#8b008b" "#00b7f0" "#1388a2" "#104e8b" "#00688b"))
+(solarized-create-theme-file-with-palette 'light 'solarized-solarized-light
+  '("#002b36" "#fdf6e3"
+    "#b58900" "#cb4b16" "#dc322f" "#d33682" "#6c71c4" "#268bd2" "#2aa198" "#859900"))
+(solarized-create-theme-file-with-palette 'dark 'solarized-wombat-dark
+  '("#2a2a29" "#f6f3e8"
+    "#e5c06d" "#ddaa6f" "#ffb4ac" "#e5786d" "#834c98" "#a4b5e6" "#7ec98f" "#8ac6f2")
+  '((custom-theme-set-faces
+     theme-name
+     `(default ((,class (:foreground ,(solarized-color-blend base03 base3 0.15 2) :background ,base03))))
+     `(highlight ((,class (:background ,violet))))
+     `(font-lock-builtin-face ((,class (:foreground ,magenta))))
+     `(font-lock-constant-face ((,class (:foreground ,blue))))
+     `(font-lock-comment-face ((,class (:foreground ,base00))))
+     `(mode-line
+       ((,class (:foreground ,base2 :background ,(solarized-color-blend base03 base3 0.85 2)))))
+     `(mode-line-inactive
+       ((,class (:foreground ,base00 :background ,(solarized-color-blend base03 "black" 0.85 2)))))
+     `(mode-line-buffer-id ((,class (:foreground ,base3 :weight bold))))
+     `(minibuffer-prompt ((,class (:foreground ,base1))))
+     `(vertical-border ((,class (:foreground ,base03)))))))
   )
+
+(use-package leuven-theme
+  :ensure t
+  :config
+  :pin melpa
+  )
+
+(load-theme 'leuven t)
+(setq x-underline-at-descent-line t)
 
 ;; font config
 
 (defconst my/english-fonts
-  '("Source Code Pro" "Monaco" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
+  '("Monaco" "Source Code Pro" "Consolas" "DejaVu Sans Mono" "Droid Sans Mono" "PragmataPro"
     "Courier" "Courier New" "Liberation Mono" "Ubuntu Mono" "Droid Sans Mono Pro"
     "Inconsolata" "Lucida Console" "Envy Code R" "Andale Mono"
     "Lucida Sans Typewriter" "monoOne" "Lucida Typewriter" "Panic Sans" "Hack"
@@ -667,12 +702,13 @@
   :interpreter ("scala" . scala-mode)
   )
 
-(use-package ensime
-  :ensure t
-  :pin melpa-stable
-  :requires (scala-mode)
-  :hook (scala-mode . ensime-mode)
-  )
+;; ensime is depreated, see https://scalameta.org/metals/
+;; (use-package ensime
+;;   :ensure t
+;;   :pin melpa-stable
+;;   :requires (scala-mode)
+;;   :hook (scala-mode . ensime-mode)
+;;   )
 
 ;; Jenkinsfile use groovy
 (use-package groovy-mode
@@ -822,6 +858,9 @@ user."
   ([f1] . neotree-toggle)
   :custom
   (neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (neo-autorefresh t)
+  (neo-smart-open t)
+  (neo-vc-intergration 'char)
   )
 
 (use-package all-the-icons
